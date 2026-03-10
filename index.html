@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Jules Gagnaire — Doctorant en Mathématiques</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=IBM+Plex+Sans:wght@300;400;500&family=IBM+Plex+Mono:wght@400&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --black: #111;
+      --gray-dark: #444;
+      --gray: #777;
+      --gray-light: #bbb;
+      --border: #ddd;
+      --bg: #fafaf8;
+      --white: #fff;
+      --accent: #1a4a8a;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--black);
+      font-family: 'IBM Plex Sans', Helvetica, Arial, sans-serif;
+      font-weight: 300;
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    /* ── NAVBAR ── */
+    header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      padding: 0 3rem;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-name {
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: 1.05rem;
+      font-weight: 500;
+      color: var(--black);
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 0.1rem;
+    }
+
+    nav ul a {
+      display: block;
+      color: var(--gray);
+      text-decoration: none;
+      font-size: 0.8rem;
+      padding: 0.35rem 0.75rem;
+      border-radius: 3px;
+      transition: color 0.15s, background 0.15s;
+      white-space: nowrap;
+    }
+    nav ul a:hover { color: var(--black); background: #f0f0ee; }
+    nav ul a.active { color: var(--black); font-weight: 500; }
+
+    /* ── MAIN ── */
+    main {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 5rem 2rem 4rem;
+    }
+
+    /* ── SECTIONS ── */
+    section {
+      padding: 4rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+    section:last-child { border-bottom: none; }
+
+    .section-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--gray-light);
+      margin-bottom: 1.8rem;
+    }
+
+    h2 {
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: 1.6rem;
+      font-weight: 500;
+      color: var(--black);
+      margin-bottom: 1.5rem;
+      line-height: 1.2;
+    }
+
+    p {
+      color: var(--gray-dark);
+      margin-bottom: 1rem;
+    }
+    p:last-child { margin-bottom: 0; }
+
+    /* ── HERO ── */
+    .hero-title {
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: 2.8rem;
+      font-weight: 400;
+      line-height: 1.15;
+      margin-bottom: 0.8rem;
+    }
+    .hero-title em { font-style: italic; color: var(--gray-dark); }
+
+    .hero-meta {
+      font-size: 0.82rem;
+      color: var(--gray);
+      margin: 1.4rem 0 1.6rem;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 1.8rem;
+    }
+    .tag {
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      padding: 0.25rem 0.7rem;
+      font-size: 0.77rem;
+      color: var(--gray-dark);
+      background: var(--white);
+    }
+
+    /* ── CV ── */
+    .cv-block { margin-bottom: 2.5rem; }
+    .cv-block:last-child { margin-bottom: 0; }
+
+    .block-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--gray-light);
+      margin-bottom: 1rem;
+    }
+
+    .entry {
+      display: grid;
+      grid-template-columns: 110px 1fr;
+      gap: 0 1.5rem;
+      margin-bottom: 1.4rem;
+    }
+    .entry:last-child { margin-bottom: 0; }
+
+    .entry-date {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--gray-light);
+      padding-top: 0.15rem;
+    }
+    .entry-title { font-size: 0.9rem; font-weight: 400; margin-bottom: 0.15rem; }
+    .entry-sub { font-size: 0.82rem; color: var(--gray); line-height: 1.55; }
+
+    .dl-link {
+      display: inline-block;
+      margin-top: 0.35rem;
+      font-size: 0.78rem;
+      color: var(--accent);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.15s;
+    }
+    .dl-link:hover { border-color: var(--accent); }
+
+    .link-small {
+      display: inline-block;
+      margin-top: 2rem;
+      font-size: 0.8rem;
+      color: var(--accent);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.15s;
+    }
+    .link-small:hover { border-color: var(--accent); }
+
+    /* ── RESEARCH ── */
+    .theme {
+      margin-bottom: 2rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .theme:last-of-type { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+    .theme h3 {
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: 1.1rem;
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+    }
+
+    /* ── TALKS ── */
+    .talk {
+      display: grid;
+      grid-template-columns: 110px 1fr;
+      gap: 0 1.5rem;
+      margin-bottom: 1.4rem;
+    }
+    .talk:last-child { margin-bottom: 0; }
+    .talk-date {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--gray-light);
+      padding-top: 0.15rem;
+    }
+    .talk-title { font-size: 0.9rem; margin-bottom: 0.15rem; }
+    .talk-where { font-size: 0.8rem; color: var(--gray); }
+    .badge {
+      display: inline-block;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.67rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--gray);
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      padding: 0.1rem 0.4rem;
+      margin-left: 0.4rem;
+      vertical-align: middle;
+    }
+
+    /* ── CONTACT ── */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0 3rem;
+      margin-top: 1.5rem;
+    }
+    .contact-item { margin-bottom: 1.4rem; }
+    .contact-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--gray-light);
+      margin-bottom: 0.25rem;
+    }
+    .contact-value { font-size: 0.88rem; color: var(--gray-dark); }
+    .contact-value a { color: var(--accent); text-decoration: none; }
+    .contact-value a:hover { text-decoration: underline; }
+
+    /* ── PLACEHOLDER ── */
+    .placeholder {
+      display: inline-block;
+      font-style: italic;
+      color: var(--gray-light);
+      font-size: 0.85rem;
+      border: 1px dashed var(--border);
+      border-radius: 3px;
+      padding: 0.6rem 1rem;
+      margin-top: 0.5rem;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center;
+      padding: 2rem;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--gray-light);
+      border-top: 1px solid var(--border);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 700px) {
+      header { padding: 0 1.2rem; }
+      nav ul { gap: 0; }
+      nav ul a { padding: 0.35rem 0.4rem; font-size: 0.72rem; }
+      main { padding: 4.5rem 1.2rem 3rem; }
+      .entry, .talk { grid-template-columns: 90px 1fr; }
+      .contact-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<header>
+  <a href="#accueil" class="nav-name">Jules Gagnaire</a>
+  <nav>
+    <ul>
+      <li><a href="#accueil" class="active">Présentation</a></li>
+      <li><a href="#cv">CV</a></li>
+      <li><a href="#recherche">Recherche</a></li>
+      <li><a href="#enseignement">Enseignement</a></li>
+      <li><a href="#exposes">Exposés</a></li>
+      <li><a href="#diffusion">Diffusion</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+
+  <!-- PRÉSENTATION -->
+  <section id="accueil">
+    <div class="section-label">Présentation</div>
+    <h1 class="hero-title">Jules Gagnaire<br><em>Doctorant en mathématiques</em></h1>
+    <p class="hero-meta">
+      Université de Bordeaux &nbsp;·&nbsp; Institut de Mathématiques de Bordeaux &nbsp;·&nbsp; Dir. K. Kellay &amp; Ph. Jaming
+    </p>
+    <p>
+      Je suis doctorant en mathématiques à l'Université de Bordeaux, sous la direction de
+      Karim Kellay et Philippe Jaming. Ma thèse porte sur les <em>problèmes d'approximation
+      dans l'espace de Dirichlet</em>.
+    </p>
+    <p>
+      Mes intérêts de recherche portent sur l'analyse complexe, l'analyse harmonique et
+      l'analyse fonctionnelle. En ce moment, je travaille sur les frames de Gabor.
+    </p>
+    <div class="tags">
+      <span class="tag">Analyse complexe</span>
+      <span class="tag">Analyse harmonique</span>
+      <span class="tag">Analyse fonctionnelle</span>
+      <span class="tag">Espace de Paley-Wiener</span>
+      <span class="tag">Théorèmes de Müntz</span>
+      <span class="tag">Frames de Gabor</span>
+      <span class="tag">Espace de Dirichlet</span>
+    </div>
+  </section>
+
+  <!-- CV -->
+  <section id="cv">
+    <div class="section-label">Curriculum vitæ</div>
+    <h2>Parcours</h2>
+
+    <div class="cv-block">
+      <div class="block-label">Formation</div>
+
+      <div class="entry">
+        <div class="entry-date">2025 – …</div>
+        <div>
+          <div class="entry-title">Doctorat de mathématiques pures — Analyse</div>
+          <div class="entry-sub">
+            Université de Bordeaux — Institut de Mathématiques de Bordeaux<br>
+            Directeurs : Karim Kellay et Philippe Jaming<br>
+            Sujet : Problème d'approximation dans l'espace de Dirichlet
+          </div>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="entry-date">2024 – 2025</div>
+        <div>
+          <div class="entry-title">Master 2 Analyse – EDP – Probabilités <span style="color:var(--gray-light); font-size:0.8rem;">mention bien</span></div>
+          <div class="entry-sub">
+            Université de Bordeaux<br>
+            EDP linéaires et non linéaires, analyse harmonique, semi-groupes, algorithmes stochastiques, algorithmes en grande dimension, calcul stochastique, limites d'échelles en probabilités, séminaire de lecture sur les inégalités fonctionnelles, noyau de la chaleur.
+          </div>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="entry-date">2023 – 2024</div>
+        <div>
+          <div class="entry-title">Master 2 Mathématiques générales — Agrégation de mathématiques</div>
+          <div class="entry-sub">
+            Université de Franche-Comté, Besançon<br>
+            Reçu 188<sup>e</sup> à l'agrégation externe de mathématiques.
+          </div>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="entry-date">2022 – 2023</div>
+        <div>
+          <div class="entry-title">Master 1 Mathématiques générales &amp; 2<sup>e</sup> année de magistère (DU)</div>
+          <div class="entry-sub">Université de Franche-Comté, Besançon</div>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="entry-date">2021 – 2022</div>
+        <div>
+          <div class="entry-title">Licence 3 Mathématiques fondamentales <span style="color:var(--gray-light); font-size:0.8rem;">mention assez bien</span> &amp; 1<sup>re</sup> année de magistère (DU)</div>
+          <div class="entry-sub">Université de Franche-Comté, Besançon</div>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="entry-date">2019 – 2021</div>
+        <div>
+          <div class="entry-title">Classes préparatoires MPSI / MP</div>
+          <div class="entry-sub">Lycée Pothier, Orléans</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cv-block">
+      <div class="block-label">Mémoires</div>
+
+      <div class="entry">
+        <div class="entry-date">2025</div>
+        <div>
+          <div class="entry-title">Les espaces de Hardy et leurs applications</div>
+          <div class="entry-sub">
+            Mémoire de M2 — Université de Bordeaux, dirigé par Karim Kellay.<br>
+            Espaces de Hardy, théorème de factorisation, théorème de Müntz-Szász, opérateur du shift, sous-espaces invariants, théorème de Beurling, opérateurs de composition, mesures de Carleson.
+          </div>
+          <a href="https://github.com/jules-g7/memoire/raw/main/Mémoire_M2___Les_espaces_de_Hardy_et_leurs_applications__version_allégée_.pdf" class="dl-link" target="_blank">↓ Télécharger le mémoire (PDF)</a>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="entry-date">2023</div>
+        <div>
+          <div class="entry-title">Théorèmes de Phragmén-Lindelöf et applications</div>
+          <div class="entry-sub">
+            Mémoire de M1 — Université de Franche-Comté, dirigé par Yulia Kuznetsova.<br>
+            Principe du maximum sur des ouverts non bornés, théorème de Boas-Bernstein, interpolation de Riesz-Thorin, inégalités de Hausdorff-Young, équation de la chaleur.
+          </div>
+          <a href="https://github.com/jules-g7/memoire/raw/main/Projet_M1___Théorème_de_Phragmen_Lindelof_et_applictaions.pdf" class="dl-link" target="_blank">↓ Télécharger le mémoire (PDF)</a>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="entry-date">2022</div>
+        <div>
+          <div class="entry-title">Les intégrales eulériennes</div>
+          <div class="entry-sub">
+            Mémoire de L3 — Université de Franche-Comté, dirigé par Martin Meyer.<br>
+            Fonctions Gamma et Beta, lien avec la fonction Zêta de Riemann.
+          </div>
+          <a href="https://github.com/jules-g7/memoire/raw/main/Mémoire_L3_corrigé.pdf" class="dl-link" target="_blank">↓ Télécharger le mémoire (PDF)</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="cv-block">
+      <div class="block-label">Autres activités scientifiques</div>
+
+      <div class="entry">
+        <div class="entry-date">Jan. 2025</div>
+        <div>
+          <div class="entry-title">Masterclass — Couches limites et asymptotiques spectrales</div>
+          <div class="entry-sub">Université de Bordeaux et Université de Pau</div>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="entry-date">2024 – 2025</div>
+        <div>
+          <div class="entry-title">Graduate Program Numerics</div>
+          <div class="entry-sub">Université de Bordeaux — Semaine thématique sur la transformée de Radon, séminaires hebdomadaires en analyse des systèmes numériques.</div>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="entry-date">Jan. 2024</div>
+        <div>
+          <div class="entry-title">École d'initiation à la recherche du LmB</div>
+          <div class="entry-sub">Laboratoire de Mathématiques de Besançon, Pierrefontaine-les-Varans.<br>
+          Surfaces de Riemann, formes modulaires, théorème de Ramsey, fonctions harmoniques, théorèmes de point fixe.</div>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="entry-date">2024 – 2025</div>
+        <div>
+          <div class="entry-title">Tutorat de mathématiques</div>
+          <div class="entry-sub">Université de Bordeaux — Cours à des étudiants de L1, L2 et L3.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cv-block">
+      <div class="block-label">Compétences</div>
+      <div class="tags" style="margin-top:0.5rem;">
+        <span class="tag">LaTeX</span>
+        <span class="tag">Python</span>
+        <span class="tag">C++</span>
+        <span class="tag">CamL</span>
+        <span class="tag">Français (natif)</span>
+        <span class="tag">Anglais (C1)</span>
+        <span class="tag">Espagnol (B1)</span>
+      </div>
+    </div>
+
+    <a href="#" class="link-small">↓ Télécharger le CV complet (PDF)</a>
+  </section>
+
+  <!-- RECHERCHE -->
+  <section id="recherche">
+    <div class="section-label">Recherche</div>
+    <h2>Intérêts &amp; travaux</h2>
+
+    <div class="theme">
+      <h3>Frames de Gabor et perturbations</h3>
+      <p>Les frames de Gabor sont des familles de fonctions obtenues par translations et
+      modulations d'une fenêtre fixée. Elles jouent un rôle fondamental en analyse
+      temps-fréquence. Je m'intéresse à leur stabilité sous perturbations des paramètres
+      de translation et modulation, ainsi qu'aux conditions suffisantes garantissant
+      la propriété de frame.</p>
+    </div>
+
+    <div class="theme">
+      <h3>Espace de Paley-Wiener et ensembles d'unicité</h3>
+      <p>L'espace de Paley-Wiener PW<sub>π</sub> est l'espace des fonctions entières de type
+      exponentiel au plus π, de carré intégrable sur la droite réelle. Un ensemble d'unicité
+      est un sous-ensemble de ℝ (ou ℂ) sur lequel l'annulation d'une fonction de cet espace
+      entraîne son annulation identique.</p>
+    </div>
+
+    <div class="theme">
+      <h3>Théorèmes de Müntz</h3>
+      <p>Les théorèmes de Müntz caractérisent les familles de monômes {x<sup>λ<sub>n</sub></sup>}
+      dont les combinaisons linéaires sont denses dans C([0,1]) ou dans L<sup>2</sup>([0,1]).
+      Ces questions sont intimement liées à la théorie des espaces de fonctions analytiques
+      et aux problèmes d'approximation.</p>
+    </div>
+
+    <div class="theme">
+      <h3>Espace de Dirichlet</h3>
+      <p>L'espace de Dirichlet est un espace de Hilbert de fonctions holomorphes sur le
+      disque unité, occupant une place naturelle entre l'espace de Hardy H<sup>2</sup> et
+      l'espace de Bergman. Mes travaux de thèse portent sur les problèmes d'approximation
+      dans cet espace.</p>
+    </div>
+
+    <div style="margin-top:2rem;">
+      <div class="block-label">Publications &amp; prépublications</div>
+      <span class="placeholder">À compléter — articles soumis, prépublications arXiv, etc.</span>
+    </div>
+  </section>
+
+  <!-- ENSEIGNEMENT -->
+  <section id="enseignement">
+    <div class="section-label">Enseignement</div>
+    <h2>Cours &amp; travaux dirigés</h2>
+    <p>Enseignements assurés à l'Université de Bordeaux.</p>
+    <span class="placeholder">Aucun enseignement cette année — à compléter lors des prochaines années.</span>
+  </section>
+
+  <!-- EXPOSÉS -->
+  <section id="exposes">
+    <div class="section-label">Exposés</div>
+    <h2>Séminaires &amp; conférences</h2>
+    <span class="placeholder">À compléter — séminaires et conférences à venir.</span>
+  </section>
+
+  <!-- DIFFUSION -->
+  <section id="diffusion">
+    <div class="section-label">Diffusion scientifique</div>
+    <h2>Engagement &amp; vulgarisation</h2>
+    <div class="talk">
+      <div class="talk-date">2024 – 2025</div>
+      <div>
+        <div class="talk-title">Tutorat de mathématiques <span class="badge">Enseignement</span></div>
+        <div class="talk-where">Université de Bordeaux — Cours à des étudiants de L1, L2 et L3</div>
+      </div>
+    </div>
+    <span class="placeholder" style="margin-top:1rem;">Autres activités de vulgarisation — à compléter.</span>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="section-label">Contact</div>
+    <h2>Me contacter</h2>
+    <p>N'hésitez pas à m'écrire pour toute question scientifique ou invitation.</p>
+    <div class="contact-grid">
+      <div>
+        <div class="contact-item">
+          <div class="contact-label">Adresse email</div>
+          <div class="contact-value">
+            <a href="/cdn-cgi/l/email-protection#88e2fde4edfba6efe9efe6e9e1faedc8e5e9fce0a6fda5eae7faecede9fdf0a6eefa"><span class="__cf_email__" data-cfemail="9df7e8f1f8eeb3fafcfaf3fcf4eff8ddf0fce9f5b3e8b0fff2eff9f8fce8e5b3fbef">[email&#160;protected]</span></a>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-label">Bureau</div>
+          <div class="contact-value">
+            Bâtiment A33, bureau 381<br>
+            Institut de Mathématiques de Bordeaux
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="contact-item">
+          <div class="contact-label">Adresse postale</div>
+          <div class="contact-value">
+            Institut de Mathématiques de Bordeaux<br>
+            351 cours de la Libération<br>
+            33405 Talence Cedex
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-label">Page institutionnelle</div>
+          <div class="contact-value">
+            <a href="https://www.math.u-bordeaux.fr/fr/fiche-personnelle-jgagnaire" target="_blank">math.u-bordeaux.fr</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  Jules Gagnaire — Doctorant en mathématiques, Université de Bordeaux — 2025
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  const sections = document.querySelectorAll('section[id]');
+  const links = document.querySelectorAll('nav a');
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        links.forEach(l => l.cl
